@@ -4,7 +4,11 @@ export default {
     './resources/views/**/*.blade.php'
   ],
   theme: {
-    extend: {},
+    extend: {
+      width: {
+        '96': '24rem',
+      }
+    },
   },
   plugins: [],
 }
