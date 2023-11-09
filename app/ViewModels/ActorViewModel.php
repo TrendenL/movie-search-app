@@ -26,17 +26,8 @@ class ActorViewModel extends ViewModel
             'profile_path' => $this->actor['profile_path']
                 ? 'https://image.tmdb.org/t/p/w300' . $this->actor['profile_path']
                 : 'https://via.placeholder.com/300x450',
-        ])->dump();
+        ]);
     }
-
-    // public function social()
-    // {
-    //     return collect($this->social)->merge([
-    //         'twitter' => $this->social['twitter_id'] ? 'https://twitter.com/' . $this->social['twitter_id'] : null,
-    //         'instagram' => $this->social['instagram_id'] ? 'https://instagram.com/' . $this->social['instagram'] : null,
-    //         'facebook' => $this->social['facebook_id'] ? 'https://facebook.com/' . $this->social['facebook'] : null,
-    //     ])->dump();
-    // }
 
     public function social()
     {
@@ -55,15 +46,25 @@ class ActorViewModel extends ViewModel
     {
         $castMovies = collect($this->credits)->get('cast');
 
-        return collect($castMovies)->where('media_type', 'movie')->sortByDesc('popularity')->take(5)
-            ->map(function ($movie) {
-                return collect($movie)->merge([
-                    'poster_path' => $movie['poster_path']
-                        ? 'https://image.tmdb.org/t/p/w185' . $movie['poster_path']
-                        : 'https://via.placeholder.com/185x278',
-                    'title' => isset($movie['title']) ? $movie['title'] : 'Untitled',
-                ]);
-            })->dump();
+        return collect($castMovies)->sortByDesc('popularity')->take(5)->map(function ($movie) {
+            if (isset($movie['title'])) {
+                $title = $movie['title'];
+            } elseif (isset($movie['name'])) {
+                $title = $movie['name'];
+            } else {
+                $title = 'Untitled';
+            }
+
+            return collect($movie)->merge([
+                'poster_path' => $movie['poster_path']
+                    ? 'https://image.tmdb.org/t/p/w185' . $movie['poster_path']
+                    : 'https://via.placeholder.com/185x278',
+                'title' => $title,
+                'linkToPage' => $movie['media_type'] === 'movie' ? route('movies.show', $movie['id']) : route('tv.show', $movie['id'])
+            ])->only([
+                'poster_path', 'title', 'id', 'media_type', 'linkToPage',
+            ]);
+        });
     }
 
     public function credits()
@@ -93,6 +94,6 @@ class ActorViewModel extends ViewModel
                 'title' => $title,
                 'character' => isset($movie['chracater']) ? $movie['character'] : '',
             ]);
-        })->sortByDesc('release_date')->dump();
+        })->sortByDesc('release_date');
     }
 }

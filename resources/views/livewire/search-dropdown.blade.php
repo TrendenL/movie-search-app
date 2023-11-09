@@ -2,7 +2,7 @@
     <div class="relative mt-3 md:mt-0" x-data="{isOpen: true}" @click.away="isOpen = false">
         <input 
             wire:model.live.debounce.500ms="search" 
-            type="text" class="bg-gray-800 rounded-full w-64 px-4 pl-8 py-1 focus:outline-none focus:shadow-outline" 
+            type="text" class="bg-gray-700 rounded-full w-64 px-4 pl-8 py-1 focus:outline-none focus:shadow-outline" 
             placeholder="Search"
             x-ref="search"
             @keydown.window="

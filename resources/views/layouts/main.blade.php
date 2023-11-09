@@ -10,8 +10,8 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
 </head>
-<body class="font-sans bg-gray-900 text-white">
-    <nav class="border-b border-gray-800">
+<body class="font-sans bg-gray-800 text-white">
+    <nav class="border-b border-gray-700">
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between px-4 py-6">
             <ul class="flex flex-col md:flex-row items-center">
                 <li>
@@ -24,7 +24,7 @@
                     <a href="{{ route('movies.index') }}" class="hover:text-gray-300">Movies</a>
                 </li>
                 <li class="md:ml-6 mt-3 md:mt-0">
-                    <a href="#" cl mt-3 md:mt-0ass="hover:text-gray-300">TV Shows</a>
+                    <a href="{{ route('tv.index') }}" cl mt-3 md:mt-0ass="hover:text-gray-300">TV Shows</a>
                 </li>
                 <li class="md:ml-6 mt-3 md:mt-0">
                     <a href="{{ route('actors.index') }}" class="hover:text-gray-300">Actors</a>
